@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: webapp-deploy
+  labels:
+    app: webapp
+
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:   # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: katacoda/docker-http-server:latest
+        ports:
+        - containerPort: 80
