@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: golang-app-deploy
+  labels:
+    app: golang-app
+  annotations:
+    kubernetes.io/change-cause: "Update golang-app from 0.0.1 to 0.0.2"
+
+spec:
+  replicas: 5
+  minReadySeconds: 10           # 指在更新了一个 pod 后，需要在它进入正常状态后 10 秒再更新下一个 pod，默认值为0
+
+  strategy:                     # 更新策略
+    type: RollingUpdate         # 策略类型: 滚动更新
+    rollingUpdate:
+      maxUnavailable: 1         # 更新过程中，最多有一个 Pod 不可用
+      maxSurge: 1               # 多余的 pod 不能超过一个
+
+  template:
+    metadata:
+      labels:
+        app: golang-app
+    spec:
+      containers:
+      - name: golang-app-po
+        image: lqshow/golang-app:0.0.2
+        ports:
+          - containerPort: 80

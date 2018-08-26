@@ -40,4 +40,5 @@ curl localhost:30081
 
 # Reference
 - [Creating a RESTful API With Golang](https://tutorialedge.net/golang/creating-restful-api-with-golang/)
+- [k8s 使用 Deployment 管理应用](https://github.com/lqshow/notes/issues/40)
 
