@@ -35,7 +35,7 @@ spec:
         app: golang-app
     spec:
       containers:
-      - name: golang-app-po
+      - name: golang-app-container
         image: lqshow/golang-app:0.0.1
         ports:
           - containerPort: 3000

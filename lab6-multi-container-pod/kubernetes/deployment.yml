@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multi-container-pod-svc
+  labels:
+    app: multi-container-pod
+spec:
+  ports:
+  - port: 3000
+    name: http
+    targetPort: 3000
+    nodePort: 30083
+    protocol: TCP
+  selector:
+    app: multi-container-pod
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: multi-container-pod-deploy
+  labels:
+    app: multi-container-pod
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: multi-container-pod
+    spec:
+      containers:
+        - name: golang-server-container
+          image: lqshow/k8s-multi-container-pod:0.0.1
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: "REDIS_HOST"
+              value: "localhost"
+            - name: "REDIS_PORT"
+              value: "6379"
+        - name: redis-container
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+              protocol: TCP

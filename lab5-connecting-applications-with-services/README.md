@@ -1,4 +1,4 @@
-# Build a Docker image from existing Go source code and push it to Docker Hub
+# Build a Docker image from existing Golang source code and push it to Docker Hub
 
 ```bash
 cd src

@@ -28,7 +28,7 @@ spec:
         app: golang-redis
     spec:
       containers:
-      - name: golang-redis-po
+      - name: golang-redis-container
         image: lqshow/golang-redis:0.0.6
         ports:
           - containerPort: 3000
