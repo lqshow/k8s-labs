@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: using-multiple-configmap-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: using-multiple-configmap-pod
+    spec:
+      containers:
+        - name: using-multiple-configmap-container
+          image: nginx
+          ports:
+            - containerPort: 80
+          env:
+            # Define the environment variable
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to MYSQL_HOST
+                  name: mysql-config
+                  # Specify the key associated with the value
+                  key: mysql.host
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: mysql.port
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: log.level
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: default
+data:
+  mysql.host: "8.8.8.8"
+  mysql.port: "3306"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+  namespace: default
+data:
+  log.level: INFO

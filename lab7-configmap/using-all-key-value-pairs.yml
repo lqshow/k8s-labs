@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: using-all-key-value-pairs-in-configmap-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: using-all-key-value-pairs-in-configmap-pod
+    spec:
+      containers:
+        - name: using-all-key-value-pairs-in-configmap-container
+          image: nginx
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: redis-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  namespace: default
+data:
+  redis.host: localhost
+  redis.port: "6379"
