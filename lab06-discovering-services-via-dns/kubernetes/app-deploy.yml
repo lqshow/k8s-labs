@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovering-services-via-dns-svc
+  labels:
+    app: discovering-services-via-dns
+spec:
+  ports:
+  - port: 3000
+    nodePort: 30081
+  selector:
+    app: discovering-services-via-dns
+  type: NodePort
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: discovering-services-via-dns-deploy
+  labels:
+    app: discovering-services-via-dns
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: discovering-services-via-dns
+    spec:
+      containers:
+      - name: discovering-services-via-dns-container
+        image: lqshow/discovering-services-via-dns:0.0.1
+        ports:
+          - containerPort: 3000
+        env:
+          - name: GET_HOSTS_FROM
+            value: dns
+          - name: REDIS_SVC_DNS
+            value: redis-svc.default
+          - name: REDIS_SVC_DNS2
+            value: redis-svc.default.svc.cluster.local

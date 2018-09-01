@@ -1,0 +1,15 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+
+build:
+  artifacts:
+  - imageName: lqshow/k8s-skaffold-test
+    workspace: ./src/
+    docker: {}
+  local:
+    skipPush: null
+    
+deploy:
+  kubectl:
+    manifests:
+    - ./kubernetes/*

@@ -27,12 +27,12 @@ kubectl edit configmap game-config
 ```
 ![configmap](https://user-images.githubusercontent.com/8086910/44737433-8dbdd200-ab24-11e8-8522-fe254c076220.gif)
 
-### Notes
+### 总结
 
 1. 当ConfigMap以数据卷的形式挂载进Pod时，更新ConfigMap（或删掉重建ConfigMap），Pod内挂载的配置信息会热更新，但使用环境变量方式加载到pod，则不会自动更新。
 2. Pod 只能使用在同一个 namespace 下的 ConfigMap。
 3. ConfigMap 必须在 Pod 引用它之前创建。
 4. 如果 container 中存在多份 envFrom， confingMap 中相同的键会被后面的替换。实际开发中我们可以准备一份全量 default 的 configMap用于开发测试使用，上线后在 container 中再引入一份 production 的configMap 即可。
 
-### References
+### 参考
 - [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)

@@ -1,5 +1,5 @@
 # Build a Docker image from existing Golang source code and push it to Docker Hub
-
+> Creating a Pod that runs two Containers
 > multi-container-pod has a golang-server-container container and a redis-container container
 ```bash
 cd src

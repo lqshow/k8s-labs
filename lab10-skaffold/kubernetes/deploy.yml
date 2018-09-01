@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: skaffold-test-svc
+  labels:
+    app: skaffold-test
+spec:
+  ports:
+  - port: 3000
+    nodePort: 30081
+  selector:
+    app: skaffold-test
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: skaffold-test-deploy
+  labels:
+    app: skaffold-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: skaffold-test
+    spec:
+      containers:
+      - name: skaffold-test-container
+        image: lqshow/k8s-skaffold-test
+        ports:
+          - containerPort: 3000
