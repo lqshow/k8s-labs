@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+spec:
+  rules:
+  - host: svc1.k8s.local
+    http:
+      paths:
+      - backend:
+          serviceName: backend-svc-1
+          servicePort: 80
+  - host: svc2.k8s.local
+    http:
+      paths:
+      - backend:
+          serviceName: backend-svc-2
+          servicePort: 80
+  - host: www.k8s.local
+    http:
+      paths:
+      - path: /svc1
+        backend:
+          serviceName: backend-svc-1
+          servicePort: 80
+      - path: /svc2
+        backend:
+          serviceName: backend-svc-2
+          servicePort: 80
+      - path: /nginx_status
+        backend:
+          serviceName: nginx-ingress
+          servicePort: 18080

@@ -20,7 +20,19 @@ kubectl create -f `PWD`/kubernetes/
 
 ### 验证
 #### 通过域名1验证
+```bash
+➜  kubectl exec -it net-test-dff6845bb-wb889 curl discovering-services-via-dns-svc.default:3000
+Welcome to the HomePage!
+
+Hostname is discovering-services-via-dns-deploy-55659c6749-hkmlg
+```
 #### 通过域名2验证
+```bash
+➜  kubectl exec -it net-test-dff6845bb-wb889 curl discovering-services-via-dns-svc.default.svc.cluster.local:3000
+Welcome to the HomePage!
+
+Hostname is discovering-services-via-dns-deploy-55659c6749-hkmlg
+```
 
 ### 删除 Service 和 Deplodment
 ```bash
