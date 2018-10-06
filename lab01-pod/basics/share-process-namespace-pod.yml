@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: share-process-namespace-pod
+
+spec:
+  shareProcessNamespace: true
+  
+  containers:
+  - name: nginx
+    image: nginx
+  - name: shell
+    image: busybox
+    stdin: true
+    tty: true

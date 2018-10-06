@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: web
+
+spec:
+  serviceName: "nginx-headless-svc"
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+          name: web

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: two-containers-hostpath
+spec:
+
+  restartPolicy: Never
+
+  volumes:
+  - name: nginx-vol
+    hostPath: 
+      path: /var/data
+
+
+  containers:
+
+  - name: nginx-container
+    image: nginx:1.11.5
+    volumeMounts:
+    - name: nginx-vol
+      mountPath: /usr/share/nginx/html
