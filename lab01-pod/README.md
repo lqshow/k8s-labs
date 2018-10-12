@@ -74,6 +74,7 @@ kubectl exec -it share-process-namespace-pod -c shell -- sh
 ### Lifecycle
 定义的是 Container Lifecycle Hooks，是在容器状态发生变化时触发一系列“钩子”
 
+## 健康检查
 ### readinessProbe(业务探针)
 探针不正常后，不会重启容器，只会拿掉服务后端的 endpoints
 

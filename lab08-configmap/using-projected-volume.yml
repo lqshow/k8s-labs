@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projected-volume-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: projected-volume-pod
+  template:
+    metadata:
+      labels:
+        run: projected-volume-pod
+    spec:
+      containers:
+        - name: projected-volume-container
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: config-volume
+            mountPath: /projected-volume
+            readOnly: true
+      volumes:
+      - name: config-volume
+        projected:
+          sources:
+          - configMap:
+              name: test-config
+              items:
+                - key: ui.properties
+                  path: my-group/my-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config
+data:
+  ui.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+    how.nice.to.look=fairlyNice

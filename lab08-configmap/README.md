@@ -27,6 +27,12 @@ kubectl edit configmap game-config
 ```
 ![configmap](https://user-images.githubusercontent.com/8086910/44737433-8dbdd200-ab24-11e8-8522-fe254c076220.gif)
 
+#### 通过投射方式进入容器（Projected Volume）
+```
+kubectl create -f using-projected-volume.yml
+```
+
+
 ### 总结
 
 1. 当ConfigMap以数据卷的形式挂载进Pod时，更新ConfigMap（或删掉重建ConfigMap），Pod内挂载的配置信息会热更新，但使用环境变量方式加载到pod，则不会自动更新。
