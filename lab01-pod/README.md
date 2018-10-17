@@ -15,6 +15,16 @@ kubectl get svc -o wide -l app=nginx
 ## Pod 级别属性
 > 调度、网络、存储，以及安全相关的属性
 
+### nodeName
+调度到指定的 Node上
+```yaml
+apiVersion: v1
+kind: Pod
+...
+spec:
+ nodeName: k8s02
+```
+
 ### HostAliases
 定义了 Pod 的 hosts 文件（/etc/hosts）里的内容
 ```bash
