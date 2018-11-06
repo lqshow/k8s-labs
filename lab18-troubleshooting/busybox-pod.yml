@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: busybox-pod
+
+spec:    
+  containers:
+  - name: busybox
+    image: lqshow/busybox-curl
+    stdin: true
+    tty: true

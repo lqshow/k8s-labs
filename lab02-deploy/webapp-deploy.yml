@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 
 metadata:
@@ -7,9 +7,13 @@ metadata:
     app: webapp
 
 spec:
+  selector:
+    matchLabels:
+      app: webapp     # 识别被管理的 pod 对象的过滤规则
+
   replicas: 2         # 让 Deployment 创建2个 Pod 的副本
   
-  template:           # Pod 模板
+  template:           # spec.template (即 Pod 模板)
     metadata:
       labels:
         app: webapp   # 为所有 Pod 都打上这个标签，标签的 Key 是 app，value 是 webapp

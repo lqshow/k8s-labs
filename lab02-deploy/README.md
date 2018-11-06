@@ -1,3 +1,10 @@
+# Overview
+Deployment，是一个定义多副本应用（即多个副本 Pod）的对象。
+同时 Deployment 还负责在 Pod 定义发生变化时，对每个副本进行滚动更新（Rolling Update）。
+
+像这样使用一种 API 对象（Deployment）管理另一种 API 对象（Pod）的方法，在 Kubernetes 中，叫作“控制器”模式（controller pattern）。Deployment 扮演的正是 Pod 的控制器的角色。通过 Label 来识别被管理的对象。
+
+
 # Deploy the app to Kubernetes
 
 ```bash

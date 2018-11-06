@@ -1,8 +1,15 @@
+# Overview
+1. Pod 是 Kubernetes 里“最小”的 API 对象（原子调度单位）
+2. 由于 Pod 是“最小”的对象，所以它往往都是被其他对象控制的。这种组合方式，正是 Kubernetes 进行容器编排的重要模式。
+3. Pod 等价为 Kubernetes 世界里的“应用”；而一个应用，可以由多个容器组成。
+4. Pod 里的所有容器，共享的是同一个 Network Namespace，并且可以声明共享同一个 Volume。Volume 的定义在 Pod 级别。
+5. Pod 的生命周期只跟 Infra 容器一致，而与容器无关。
+
 # Deploy the app to Kubernetes
 
 ```bash
-kubectl create -f nginx-pod.yml
-kubectl create -f nginx-svc.yml
+kubectl apply -f nginx-pod.yml
+kubectl apply -f nginx-svc.yml
 ```
 
 # Check that the Pods and Service are created
@@ -28,7 +35,7 @@ spec:
 ### HostAliases
 定义了 Pod 的 hosts 文件（/etc/hosts）里的内容
 ```bash
-kubectl create -f hostaliases-pod.yml
+kubectl apply -f hostaliases-pod.yml
 ```
 查看 Pod 内的 hosts 内容
 ```bash
@@ -69,6 +76,9 @@ kubectl create -f share-process-namespace-pod.yml
 ```bash
 kubectl exec -it share-process-namespace-pod -c shell -- sh
 ```
+
+### volumes
+一个 Volume 对应的宿主机目录对于 Pod 来说就只有一个，Pod 里的容器只要声明挂载这个 Volume，就一定可以共享这个 Volume 对应的宿主机目录。
 
 ## Container 级别属性
 
