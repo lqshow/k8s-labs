@@ -1,23 +1,22 @@
 Table of Contents
 =================
-* [Overview](#overview)
+   * [Overview](#overview)
    * [Deploy the app to Kubernetes](#deploy-the-app-to-kubernetes)
    * [Check that the Pods and Service are created](#check-that-the-pods-and-service-are-created)
-      * [Pod 级别属性](#pod-级别属性)
-         * [nodeName](#nodename)
-         * [HostAliases](#hostaliases)
-         * [NodeSelector](#nodeselector)
-         * [shareProcessNamespace(TODO)](#shareprocessnamespacetodo)
-         * [volumes](#volumes)
-      * [Container 级别属性](#container-级别属性)
-         * [ImagePullPolicy](#imagepullpolicy)
-         * [Lifecycle](#lifecycle)
-      * [健康检查](#健康检查)
-         * [readinessProbe(业务探针)](#readinessprobe业务探针)
-         * [livenessProbe(存活探针)](#livenessprobe存活探针)
-         * [Configure Probes](#configure-probes)
+   * [Pod 级别属性](#pod-级别属性)
+     ​    * [nodeName](#nodename)
+     ​    * [HostAliases](#hostaliases)
+     ​    * [NodeSelector](#nodeselector)
+     ​    * [shareProcessNamespace(TODO)](#shareprocessnamespacetodo)
+     ​    * [volumes](#volumes)
+   * [Container 级别属性](#container-级别属性)
+     ​    * [ImagePullPolicy](#imagepullpolicy)
+     ​    * [Lifecycle](#lifecycle)
+     ​    * [健康检查](#健康检查)
+     ​       * [readinessProbe(业务探针)](#readinessprobe业务探针)
+     ​       * [livenessProbe(存活探针)](#livenessprobe存活探针)
+     ​       * [Configure Probes](#configure-probes)
    * [Reference](#reference)
-
 
 # Overview
 1. Pod 是 Kubernetes 里“最小”的 API 对象（原子调度单位）
@@ -40,7 +39,7 @@ kubectl get po -o wide -l app=nginx
 kubectl get svc -o wide -l app=nginx
 ```
 
-## Pod 级别属性
+# Pod 级别属性
 > 调度、网络、存储，以及安全相关的属性
 
 ### nodeName
@@ -101,7 +100,7 @@ kubectl exec -it share-process-namespace-pod -c shell -- sh
 ### volumes
 一个 Volume 对应的宿主机目录对于 Pod 来说就只有一个，Pod 里的容器只要声明挂载这个 Volume，就一定可以共享这个 Volume 对应的宿主机目录。
 
-## Container 级别属性
+# Container 级别属性
 
 ### ImagePullPolicy
 定义了镜像拉取的策略
@@ -115,7 +114,7 @@ kubectl exec -it share-process-namespace-pod -c shell -- sh
 ### Lifecycle
 定义的是 Container Lifecycle Hooks，是在容器状态发生变化时触发一系列“钩子”
 
-## 健康检查
+### 健康检查
 默认情况下，Kubernetes 会开启进程的健康检查：如果 Kubernetes 检测到容器里面的进程退出了，那么它就会重启这个容器。
 但是如果程序发生死锁了，此时进程仍然在运行，但应用其实已经不工作了。Kubernetes 提供了另外三种类型的健康检查
 
@@ -125,18 +124,18 @@ kubectl exec -it share-process-namespace-pod -c shell -- sh
 | tcp  | 与容器的某个 port 建立 tcp 连接，如果连接建立成功，容器被认为是健康的 |
 | http | 向容器的 http 接口发起 http 请求，如果返回的状态码（大于200小于400的返回码）是成功的，kubelet 就会认定该容器是活着的并且很健康。 |
 
-### readinessProbe(业务探针)
+#### readinessProbe(业务探针)
 
 > 确定容器是否已经就绪可以接受流量，主要控制哪些 Pod 可以作为 Service 的 endpoints
 
 探针不正常后，不会重启容器，只会拿掉 Service 后端的 endpoints
 
-### livenessProbe(存活探针)
+#### livenessProbe(存活探针)
 > 确定何时重启容器
 
 探针不正常后，会重启容器
 
-### Configure Probes 
+#### Configure Probes 
 
 | key                 | desc                                                         |
 | ------------------- | ------------------------------------------------------------ |
