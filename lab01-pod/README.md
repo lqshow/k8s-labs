@@ -5,12 +5,15 @@ Table of Contents
    * [Deploy the app to Kubernetes](#deploy-the-app-to-kubernetes)
    * [Check that the Pods and Service are created](#check-that-the-pods-and-service-are-created)
    * [Pod 级别属性](#pod-级别属性)
+         
          * [nodeName](#nodename)
          * [HostAliases](#hostaliases)
          * [NodeSelector](#nodeselector)
          * [shareProcessNamespace(TODO)](#shareprocessnamespacetodo)
          * [volumes](#volumes)
+         
    * [Container 级别属性](#container-级别属性)
+         
          * [ImagePullPolicy](#imagepullpolicy)
          * [Lifecycle](#lifecycle)
          * [健康检查](#健康检查)
