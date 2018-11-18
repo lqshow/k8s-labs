@@ -43,6 +43,7 @@ Elasticsearch 是一种负责存储日志并允许查询的搜索引擎
 #### Elasticsearch configuration
 
 1. 定义了一个名称为 elasticsearch-logging 的 ServiceAccount，并授予其能够对 services、namespaces 和endpoints 读取的访问权限；并以 StatefulSet 类型部署 Elasticsearch。
+
     ```bash
     # 1. 创建 ServiceAccount
     # 2. 创建 ClusterRole
@@ -51,11 +52,13 @@ Elasticsearch 是一种负责存储日志并允许查询的搜索引擎
     kubectl apply -f es-statefulset.yaml
     ```
 2. 为 Elasticsearch 暴露 9200 端口
+
     ```bash
     # 创建 Service
     kubectl apply -f es-service.yaml
     ```
 3. 检查 Elasticsearch 部署情况
+
     ```bash
     ➜  lab20-efk git:(master) ✗ kubectl get svc -owide -n kube-system -lk8s-app=elasticsearch-logging
     NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE       SELECTOR
