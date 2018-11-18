@@ -1,4 +1,4 @@
-## Overvew
+## Overview
 每个节点以 Daemonset 的形式跑一个 Fluentd， 通过 Fluentd 作为 Logging agent 收集日志，并发送到后端的 Elasticsearch， Kibana 从 Elasticsearch 中获取日志进行可视化展示。
 
 ## Logging agent (Fluentd)
