@@ -113,7 +113,27 @@ kubectl exec -it <POD-NAME> -- /bin/bash -c <CONTAINER-NAME>
 ```
 
 ## Serive 调试
+## Servie 异常
+1. 访问 Service ClusterIP 失败时，可以首先确认是否有对应的 Endpoints
+```bash
+kubectl get endpoints <service-name>
+```
+2. 如果该列表为空，则有可能是该 Service 的 LabelSelector 配置错误，可以用下面的方法确认一下
+```bash
+# 查询 Service 的 LabelSelector
+kubectl get svc <service-name> -o jsonpath='{.spec.selector}'
+
+# 查询匹配 LabelSelector 的 Pod
+kubectl get pods -l key1=value1,key2=value2
+```
+3. 如果 Endpoints 正常，可以进一步检查
+    - Pod 的 containerPort 与 Service 的 containerPort 是否对应
+    - 直接访问 podIP:containerPort 是否正常 再进一步，即使上述配置都正确无误，还有其他的原因会导致 Service 无法访问，比如
+    - Pod 内的容器有可能未正常运行或者没有监听在指定的 containerPort 上
+    - CNI 网络或主机路由异常也会导致类似的问题
+    - kube-proxy 服务有可能未启动或者未正确配置相应的 iptables 规则，比如正常情况下名为 hostnames的服务会配置以下 iptables 规则
 
 ## References
 - [Troubleshoot Kubernetes Deployments](https://docs.bitnami.com/kubernetes/how-to/troubleshoot-kubernetes-deployments/)
 - [Troubleshoot Applications](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/)
+- [Kubernetes 网络排错指南](https://mp.weixin.qq.com/s/N_0cT1k_L7lRRHaULxfeZA)
