@@ -2,7 +2,7 @@
 
 ### 集群内部 DNS 域名格式有两种
 
-1. <自定义的访问方式名称>.<工作负载所在命名空间> （例如：redis-svc.default）
+1. <自定义的访问方式名称>.<工作负载所在命名空间> （例如：redis-svc.default）
 2. <自定义的访问方式名称>.<工作负载所在命名空间>.svc.cluster.local（例如：redis-svc.default.svc.cluster.local）
 
 ### 从现有的 Golang 源代码构建 Docker 镜像，并将其推送到Docker Hub
