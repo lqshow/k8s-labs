@@ -96,7 +96,11 @@ This service is listening on port 3001
 ➜  kubectl exec -it net-test-dff6845bb-jc42c -- curl -H Host:www.k8s.local http://10.1.1.136
 default backend - 404
 ```
-
+### 查看 ingress 中 nginx 的配置
+```bash
+# 找到 ingress nginx 的pod名字后通过命令查看里面 nginx 配置文件能找到有对应的配置段生成。
+kubectl exec nginx-ingress-controller-8c64f6f87-kxl6w -- cat /etc/nginx/nginx.conf
+```
 
 ### 参考
 - [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
