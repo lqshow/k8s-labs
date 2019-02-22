@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-mount-propagation
+spec:
+  restartPolicy: Always
+  volumes:
+  - name: fuse-volume
+    emptyDir: {}
+
+  containers:
+  - name: fuse-sidecar-container
+    image: fuse-amd64:v2.2.0
+    imagePullPolicy: Always
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: fuse-volume
+      mountPath: /data/fuse
+      # 设置双向传播
+      mountPropagation: Bidirectional
+  - name: user-container
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: fuse-volume
+      mountPath: /usr/share/nginx/html
+      # 设置接收
+      mountPropagation: HostToContainer
