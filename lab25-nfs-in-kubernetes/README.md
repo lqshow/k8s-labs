@@ -46,7 +46,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-  	# server 字段值为 service(nfs-provisioner) 的 ip 地址
+    # server 字段值为 service(nfs-provisioner) 的 ip 地址
     server: "10.102.186.53"
     path: "/mysql"
 ---
