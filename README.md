@@ -36,5 +36,5 @@ Kubernetes 的主要功能有以下几块
 - [10-kustomize](./10-kustomize)：TBD
 - [11-dev-tools](./11-dev-tools)：TBD
 - [12-traefik](./12-traefik)：TBD
-- [13-traefik](./13-monitoring)：TBD
+- [13-monitoring](./13-monitoring)：TBD
 - [14-troubleshooting](./14-troubleshooting)：使用 Kubernetes 中碰到的一些常见问题以及解决方案。

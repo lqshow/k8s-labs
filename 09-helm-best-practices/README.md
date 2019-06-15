@@ -175,7 +175,7 @@ ingress:
 
 ```bash
 # 安装
-helm install -f vaules-production.yaml --name chartmuseum stable/chartmuseum
+helm upgrade -i chartmuseum -f vaules-production.yaml stable/chartmuseum
 
 # 验证
 1. 访问 http://chartmuseum.domain.com/
@@ -209,11 +209,14 @@ helm push mychart-1.0.0.tgz http://chartmuseum.domain.com
 # 方式四：强制推送
 helm push --force mychart/ chartmuseum
 
+# 方法五：通过 curl 来上传（如果没装 push plugin 情况下）
+curl --data-binary xxx.tar http://chartmuseum.domain.com/api/charts;
+
 # 更新 repo
 # 需要明确的是本地推送到远端 repo 后，同时需要在本地做更新，这样才能和远端保持一致
 helm repo update
 
-# 查看 chartmuseum repo 中的所有 chart
+# 查看 chartmuseum repo 中的所有 chart, 确认 charts 是否上传成功
 helm search chartmuseum/
 
 # 安装
@@ -227,7 +230,7 @@ helm install --version 2.3.0 chartmuseum/mychart
 
 1. helm release name 是全局唯一的，不区分 namespace，集群内 release name 需根据使用场景加上不同前缀来区分。
 2. ingress.enabled 值默认需设置成 false , 这样可以避免用户尝试安装，导致 ingress host 冲突。
-3. 严禁使用 helm delete -purge 删除 chartmuseum，该操作会同时将  pvc 全部删掉，所有 chart 都会白传。
+3. 严禁使用 helm delete -purge 删除 chartmuseum，该操作会同时将  pvc 全部删掉，所有 chart 都会白传，当然后续你重新传一遍所有 charts 问题也不大。
 
 ## References
 
