@@ -1,4 +1,5 @@
-## Overview
+# Overview
+
 所谓容器的 Volume，其实就是将一个宿主机上的目录，跟一个容器里的目录绑定挂载在了一起。
 
 而所谓的“持久化 Volume”，指的就是这个宿主机上的目录，具备“持久性”。即：这个目录里面的内容，既不会因为容器的删除而被清理掉，也不会跟当前的宿主机绑定。
@@ -9,6 +10,7 @@
 下面是 NFS 的使用方法。
 
 ## Prerequisites
+
 ### CentOs
 
 ```bash
@@ -22,6 +24,7 @@ apt install nfs-common
 ```
 
 ## Install nfs server
+
 ```bash
 kubectl apply -f ./deploy/psp.yaml
 
@@ -35,6 +38,7 @@ kubectl apply -f ./deploy/deployment.yaml
 ## Usage
 
 ### PV/PVC
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -62,7 +66,9 @@ spec:
     requests:
       storage: 200Mi
 ```
+
 ### Static Volumes with the NFS
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -88,16 +94,19 @@ spec:
 ```
 
 ### Dynamic Volumes with the NFS Client Provisioner
+
 > 动态方式是基于 StorageClass 对象，而 StorageClass 对象的作用，则是充当 PV 的模板。并且，只有同属于一个 StorageClass 的 PV 和 PVC，才可以绑定在一起。
 > 创建 pvc 的同时会自动创建相同 storage 大小的 pv 对象，pv 对象的名称由 pvc-uuid 组成。
 
 #### 创建 StorageClass 对象
+
 ```bash
 # 定义 StorageClass 名称，以及 provisioner 值，需同 nfs server 定义的 provisioner 值一致
 kubectl apply -f ./deploy/storage-class.yaml
 ```
 
 #### 创建一个 PVC 对象
+
 ```yaml
 # 指定 storage-class ，accessModes 和 storage 三个值
 kind: PersistentVolumeClaim
@@ -113,7 +122,9 @@ spec:
     requests:
       storage: 1Gi
 ```
+
 #### 在 Pod 中使用 pvc
+
 ```yaml
 # 指定 claimName 的值，为以上创建的 PVC 对象名称
 apiVersion: v1
@@ -137,6 +148,7 @@ spec:
 ```
 
 ## References
+
 - [Mounting NFS file system in CentOS 7](https://blog.hostonnet.com/mounting-nfs-centos-7)
 - [mount: wrong fs type, bad option, bad superblock](https://www.svennd.be/mount-wrong-fs-type-bad-option-bad-superblock/)
 - [PV、PVC、StorageClass，这些到底在说啥？](https://time.geekbang.org/column/article/42698)

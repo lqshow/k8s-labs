@@ -1,0 +1,10 @@
+[environments]
+  [environments.development]
+    name = "lab9-draft"
+    namespace = "default"
+    wait = true
+    watch = false
+    watch-delay = 2
+    auto-connect = false
+    dockerfile = ""
+    chart = ""

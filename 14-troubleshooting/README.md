@@ -1,4 +1,46 @@
+## Dashboard token 失效
+
+Dashboard 默认的 token 失效时间为 900 秒，即 15 分钟
+
+```bash
+# 通过修改参数 token-ttl 即可调整失效时间
+kubectl edit deploy kubernetes-dashboard -n kube-system
+```
+
+```yaml
+spec:
+  containers:
+  - args:
+    - --auto-generate-certificates
+    - --token-ttl=86400
+```
+
+### Referneces
+
+- [DefaultTokenTTL](https://github.com/kubernetes/dashboard/blob/master/src/app/backend/auth/api/types.go#L29)
+- [Dashboard arguments](https://github.com/kubernetes/dashboard/wiki/Dashboard-arguments)
+
+## 强制删除 PVC
+
+有时执行了强删命令，pvc 仍然一直删不掉，一直在终结状态，比如以下删除命令
+```bash
+kubectl delete pv --grace-period=0 --force pvc-c162c38c-77d2-11e9-8df0-525400a03483
+```
+尝试的解决方案，通过  edit 命令打开了对应 pvc， 删除了 finalizers 对应的数据.
+```bash
+kubectl edit pvc pvc-c162c38c-77d2-11e9-8df0-525400a03483
+```
+```yaml
+finalizers:
+  -  kubernetes.io/pv-protection
+```
+
+### References
+
+- [Kubernetes : Deleting resource like pv with — force and — grace-period=0 still keeps pvs in terminating state](https://medium.com/@miyurz/kubernetes-deleting-resource-like-pv-with-force-and-grace-period-0-still-keeps-pvs-in-3f4ad8710e51)
+
 ## 查看 Pod 运行状态
+
 1. 运行 kubectl get pods，查看 Pod 是否正常运行，如若正常跳过以下两步。
 2. 运行 kubectl describe pod `<POD-NAME>`，主要观察相关的 Events，查看哪个步骤除了问题，是调度除了问题还是资源不足等等。
 3. 运行 kubectl kubectl logs `<POD-NAME>`，查看 Pod 内容器的日志，如果 app 做的好的话，基本从日志层面就能看出来哪里出了问题，是依赖的服务没起，或者缺了某个环境变量啥的。

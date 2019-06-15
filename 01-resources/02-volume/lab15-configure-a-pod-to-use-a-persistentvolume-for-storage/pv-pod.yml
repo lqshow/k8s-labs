@@ -1,0 +1,31 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+    - name: enigma-fuse-daemon-container
+      image: enigma-fuse:0.0.4
+      imagePullPolicy: Never
+      tty: true
+      stdin: true
+      securityContext:
+        privileged: true
+      volumeMounts:
+      - name: task-pv-storage
+        mountPath: /data/fuse
+
+
+
