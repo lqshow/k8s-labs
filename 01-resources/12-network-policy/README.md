@@ -22,9 +22,8 @@ TBD
 
 ## Network Policy
 
-> 它是通过标签来选择 Pods，然后定义具体的规则列表，该列表确定哪些类型的流量可到达所选的 Pods。
-> podSelector 将从 NetworkPolicy 所属的 namespace 中选择 Pods，不能跨其他 namespace 选择 Pods
-> ingress 和 egress 也遵从以上选择 pods 原则，除非同 namespace selector 搭配使用
+> 它是通过标签来选择 Pods，然后定义具体的规则列表，该列表确定哪些类型的流量可到达所选的 Pods。podSelector 将从 NetworkPolicy 所属的 namespace 中选择 Pods，不能跨其他 namespace 选择 Podsingress 和 egress 也遵从以上选择 pods 原则，除非同 namespace selector 搭配使用
+>
 
 Network Policy Spec 主要由四部分组成，除了 podSelector 是必选外，其他三个元素都是可选
 
@@ -63,7 +62,7 @@ spec:
 ### 拒绝所有 Pod 之间的流量通信
 
 > 这意味着只允许其他网络策略显式白名单的连接
-  
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
