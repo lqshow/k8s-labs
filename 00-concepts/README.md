@@ -2,7 +2,23 @@
 
 ## Kubernetes 架构
 
-一个 Kubernetes 集群由 Master 和 Node 两种节点组成，而这两种角色分别对应着控制节点和计算节点。
+一个 Kubernetes 集群由 Master Node（主节点） 和 Worker Node （工作节点）两种节点组成，而这两种角色分别对应着控制节点和计算节点。
+
+1. 在一个高可用的集群当中，Master 节点和 Worker 节点一般都是由多个节点构成，这些节点可以是物理机，也可以是虚拟机。
+
+2. Worker 节点提供的资源单位为 Pod，简单理解 Pod 是 kubernetes 集群提供的虚拟机，是最小的调度单位。
+
+3. Pod 里一般只包含一个应用容器，但是其他场景下（典型的如 Service Mesh） Pod 可以包含一个主容器或多个辅助容器。
+
+下面是一张 Kubernetes 架构概览示意图：
+
+![kubernetes-cluster](https://user-images.githubusercontent.com/8086910/73325011-d896c880-4287-11ea-8ce0-0090a504a14a.png)
+
+| 节点   | 作用                                          |
+| ------ | --------------------------------------------- |
+| Master | 管理和调度集群资源                            |
+| Worker | 提供集群资源， 是 kubernetes 集群资源的提供者 |
+
 
 其中，控制节点，即 Master 节点，由三个紧密协作的独立组件组合而成，它们分别是负责 API 服务的 kube-apiserver、负责调度的 kube-scheduler，以及负责容器编排的 kube-controller-manager。整个集群的持久化数据，则由 kube-apiserver 处理后保存在 Etcd 中。而计算节点上最核心的部分，则是一个叫作 kubelet 的组件。
 
