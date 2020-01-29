@@ -24,6 +24,9 @@
 
 ## Master 节点核心组件
 
+![kubernetes-master-module](https://user-images.githubusercontent.com/8086910/73333069-9ed3bb00-42a3-11ea-9242-3ede30f59d62.png)
+
+
 ### Kubernetes API server
 
 所有的 K8s 操作都是通过 API Server， API 通过标准的 HTTP Web Service 实现，包含了 Rest 与 WebSocket 等等 API 设计
