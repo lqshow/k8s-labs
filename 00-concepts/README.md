@@ -24,7 +24,7 @@
 
 ## Master 节点核心组件
 
-![kubernetes-master-module](https://user-images.githubusercontent.com/8086910/73333069-9ed3bb00-42a3-11ea-9242-3ede30f59d62.png)
+![kubernetes-master-module_new](https://user-images.githubusercontent.com/8086910/73417919-bcad2880-4354-11ea-8611-e56ce8304512.png)
 
 
 ### Kubernetes API server
@@ -44,6 +44,9 @@ Kubernetes Controller Manager 在 Kubernetes Master 中，负责所有的控制�
 Kubernetes 集群所有的资源对象的数据以及状态保存在 etcd 中， 它可以理解成是 Kubernetes 集群的数据库
 
 ## Node 节点组件
+
+![kubernetes-worker-module](https://user-images.githubusercontent.com/8086910/73417953-d8183380-4354-11ea-95de-af6378f591ee.png)
+
 
 ### Kubelet
 
