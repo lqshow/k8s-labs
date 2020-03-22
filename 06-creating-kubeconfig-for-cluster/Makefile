@@ -71,6 +71,12 @@ create-rolebinding:
 			    --role=$(ROLE_NAME) \
 			    --serviceaccount=$(NAMESPACE):$(SERVICE_ACCOUNT)
 
+# Create clusterrolebinding
+create-clusterrolebinding:
+	@kubectl -n $(NAMESPACE) create clusterrolebinding $(ROLEBINDING_NAME) \
+			    --clusterrole=cluster-admin \
+			    --serviceaccount=$(NAMESPACE):$(SERVICE_ACCOUNT)
+
 create-serviceaccount: create-sa create-ca-crt create-token
 	@echo  "The Service Account <$(SERVICE_ACCOUNT)> is created successfully"
 
