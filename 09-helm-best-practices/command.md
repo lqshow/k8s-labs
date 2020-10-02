@@ -27,7 +27,7 @@ helm inspect values stable/mariadb
 helm create my-chart
 
 # 检验 chart
-helm lint
+helm lint my-chart
 
 # 通过目录安装 chart
 helm install ./my-chart
@@ -69,8 +69,11 @@ helm delete <RELEASE_NAME>
 # 查看 release 历史版本
 helm history <RELEASE_NAME>
 
+# 查看新设置是否生效
+helm get values <RELEASE_NAME>
+
 # Upgrade a release
-helm upgrade --set foo=bar --set foo=newbar redis stable/redis
+helm upgrade -i release-name --set foo=bar --set foo=newbar stable/redis
 
 # roll back a release to a previous revision
 helm rollback my-release
